@@ -1,4 +1,4 @@
-from gremio import Gremio
+
 
 class GremioDAO:
     def __init__(self, connection):
@@ -21,7 +21,11 @@ class GremioDAO:
         self.connection.commit()
         cursor.close()
 
-        return Gremio(id, nome, instituicao, etapa_ensino, legitimado)
+        return {"id": id,
+                "nome": nome,
+                "isntituicao": instituicao,
+                "etapa_ensino": etapa_ensino,
+                "legitimidade": legitimado}
 
     def get_by_id(self, id):
         cursor = self.connection.cursor()
@@ -41,13 +45,13 @@ class GremioDAO:
         if row is None:
             return None
 
-        return Gremio(
-            id=row[0],
-            nome=row[1],
-            instituicao=row[2],
-            etapa_ensino=row[3],
-            legitimado=row[4],
-        )
+        return {
+            "id": row[0],
+            "nome": row[1],
+            "instituicao": row[2],
+            "etapa_ensino": row[3],
+            "legitimado": row[4],
+        }
 
     def get_all(self):
         cursor = self.connection.cursor()
@@ -58,13 +62,13 @@ class GremioDAO:
         """)
 
         gremios = [
-            Gremio(
-                id=row[0],
-                nome=row[1],
-                instituicao=row[2],
-                etapa_ensino=row[3],
-                legitimado=row[4],
-            )
+            {
+                "id": row[0],
+                "nome": row[1],
+                "instituicao": row[2],
+                "etapa_ensino": row[3],
+                "legitimado": row[4],
+            }
             for row in cursor.fetchall()
         ]
 

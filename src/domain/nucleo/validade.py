@@ -1,3 +1,5 @@
+
+
 class Validade:
     def __init__(self, id, data_inicio, data_fim, cargo_id):
         self.id = id

@@ -1,4 +1,4 @@
-from usuario import Usuario
+
 
 class UsuarioDAO:
     def __init__(self, connection):
@@ -21,7 +21,13 @@ class UsuarioDAO:
         self.connection.commit()
         cursor.close()
 
-        return Usuario(id, nome, cpf, email, ra, senha, gremio_id)
+        return {"id": id,
+                "nome": nome,
+                "cpf": cpf,
+                "email": email,
+                "ra": ra,
+                "senha": senha,
+                "gremio_id": gremio_id}
 
     def get_by_id(self, id):
         cursor = self.connection.cursor()
@@ -41,15 +47,15 @@ class UsuarioDAO:
         if row is None:
             return None
 
-        return Usuario(
-            id=row[0],
-            nome=row[1],
-            cpf=row[2],
-            email=row[3],
-            ra=row[4],
-            senha=row[5],
-            gremio_id=row[6]
-        )
+        return {
+            "id": row[0],
+            "nome": row[1],
+            "cpf": row[2],
+            "email": row[3],
+            "ra": row[4],
+            "senha": row[5],
+            "gremio_id": row[6]
+        }
 
     def get_all(self):
         cursor = self.connection.cursor()
@@ -59,21 +65,21 @@ class UsuarioDAO:
             FROM Usuario
         """)
 
-        Usuarios = [
-            Usuario(
-                id=row[0],
-                nome=row[1],
-                cpf=row[2],
-                email=row[3],
-                ra=row[4],
-                senha=row[5],
-                gremio_id=row[6]
-            )
+        usuarios = [
+            {
+                "id": row[0],
+                "nome": row[1],
+                "cpf": row[2],
+                "email": row[3],
+                "ra": row[4],
+                "senha": row[5],
+                "gremio_id": row[6]
+            }
             for row in cursor.fetchall()
         ]
 
         cursor.close()
-        return Usuarios
+        return usuarios
 
     def update(self, usuario):
         cursor = self.connection.cursor()

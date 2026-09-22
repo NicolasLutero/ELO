@@ -1,4 +1,4 @@
-from cargo import Cargo
+
 
 class CargoDAO:
     def __init__(self, connection):
@@ -21,7 +21,11 @@ class CargoDAO:
         self.connection.commit()
         cursor.close()
 
-        return Cargo(id, nome, descricao, vagas, gremio_id)
+        return {"id": id,
+                "nome": nome,
+                "descricao": descricao,
+                "vagas": vagas,
+                "gremio_id": gremio_id}
 
     def get_by_id(self, id):
         cursor = self.connection.cursor()
@@ -41,13 +45,12 @@ class CargoDAO:
         if row is None:
             return None
 
-        return Cargo(
-            id=row[0],
-            nome=row[1],
-            descricao=row[2],
-            vagas=row[3],
-            gremio_id=row[4]
-        )
+        return {"id": row[0],
+                "nome": row[1],
+                "descricao": row[2],
+                "vagas": row[3],
+                "gremio_id": row[4]
+                }
 
     def get_all(self):
         cursor = self.connection.cursor()
@@ -58,13 +61,13 @@ class CargoDAO:
         """)
 
         cargos = [
-            Cargo(
-                id=row[0],
-                nome=row[1],
-                descricao=row[2],
-                vagas=row[3],
-                gremio_id=row[4]
-            )
+            {
+                "id": row[0],
+                "nome": row[1],
+                "descricao": row[2],
+                "vagas": row[3],
+                "gremio_id": row[4]
+            }
             for row in cursor.fetchall()
         ]
 

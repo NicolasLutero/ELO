@@ -1,3 +1,5 @@
+
+
 class Permissao:
     def __init__(self, id, nome, descricao):
         self.id = id

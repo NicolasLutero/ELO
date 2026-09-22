@@ -1,4 +1,4 @@
-from validade import Validade
+
 
 class ValidadeDAO:
     def __init__(self, connection):
@@ -20,7 +20,10 @@ class ValidadeDAO:
         self.connection.commit()
         cursor.close()
 
-        return Validade(id, data_inicio, data_fim, cargo_id)
+        return {"id": id,
+                "data_inicio": data_inicio,
+                "data_fim": data_fim,
+                "cargo_id": cargo_id}
 
     def get_by_id(self, id):
         cursor = self.connection.cursor()
@@ -40,12 +43,12 @@ class ValidadeDAO:
         if row is None:
             return None
 
-        return Validade(
-            id=row[0],
-            data_inicio=row[1],
-            data_fim=row[2],
-            cargo_id=row[3]
-        )
+        return {
+            "id": row[0],
+            "data_inicio": row[1],
+            "data_fim": row[2],
+            "cargo_id": row[3]
+        }
 
     def get_all(self):
         cursor = self.connection.cursor()
@@ -56,12 +59,12 @@ class ValidadeDAO:
          """)
 
         validades = [
-            Validade(
-                id=row[0],
-                data_inicio=row[1],
-                data_fim=row[2],
-                cargo_id=row[3]
-            )
+            {
+                "id": row[0],
+                "data_inicio": row[1],
+                "data_fim": row[2],
+                "cargo_id": row[3]
+            }
             for row in cursor.fetchall()
         ]
 

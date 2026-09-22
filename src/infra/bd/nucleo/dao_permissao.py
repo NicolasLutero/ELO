@@ -1,18 +1,18 @@
-from instituicao import Instituicao
 
-class InstituicaoDAO:
+
+class PermissaoDAO:
     def __init__(self, connection):
         self.connection = connection
 
-    def create(self, nome, endereco):
+    def create(self, nome, descricao):
         cursor = self.connection.cursor()
 
         cursor.execute(
-            """
-            INSERT INTO instituicao (nome, endereco)
+             """
+            INSERT INTO permissao (nome, descricao)
             VALUES (%s, %s) RETURNING id
             """,
-            (nome, endereco)
+            (nome, descricao)
         )
 
         id = cursor.fetchone()[0]
@@ -20,15 +20,17 @@ class InstituicaoDAO:
         self.connection.commit()
         cursor.close()
 
-        return Instituicao(id, nome, endereco)
+        return {"id": id,
+                "nome": nome,
+                "descricao": descricao}
 
     def get_by_id(self, id):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT id, nome, endereco
-            FROM instituicao
+            SELECT id, nome, descricao
+            FROM permissao
             WHERE id = %s
             """,
             (id,)
@@ -40,46 +42,46 @@ class InstituicaoDAO:
         if row is None:
             return None
 
-        return Instituicao(
-            id=row[0],
-            nome=row[1],
-            endereco=row[2]
-        )
+        return {
+            "id": row[0],
+            "nome": row[1],
+            "descricao": row[2]
+        }
 
     def get_all(self):
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT id, nome, endereco
-            FROM instituicao
-            """)
+            SELECT id, nome, descricao
+            FROM permissao
+         """)
 
-        instituicoes = [
-            Instituicao(
-                id=row[0],
-                nome=row[1],
-                endereco=row[2]
-            )
+        permissoes = [
+            {
+                "id": row[0],
+                "nome": row[1],
+                "descricao": row[2]
+            }
             for row in cursor.fetchall()
         ]
 
         cursor.close()
-        return instituicoes
+        return permissoes
 
-    def update(self, instituicao):
+    def update(self, permissao):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            UPDATE instituicao
-            SET nome      = %s,
-                endereco = %s
+            UPDATE permissao
+            SET nome     = %s,
+                descricao = %s
             WHERE id = %s
             """,
             (
-                instituicao.nome,
-                instituicao.endereco,
-                instituicao.id
+                permissao.nome,
+                permissao.descricao,
+                permissao.id
             )
         )
 
