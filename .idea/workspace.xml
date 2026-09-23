@@ -3,18 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8613e378-1ffc-4f3a-8fd6-5a01b559ebc7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/nucleo/cargo.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/nucleo/cargo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/nucleo/gremio.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/nucleo/gremio.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/nucleo/instituicao.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/nucleo/instituicao.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/nucleo/permissao.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/nucleo/permissao.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/nucleo/usuario.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/nucleo/usuario.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/nucleo/validade.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/nucleo/validade.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_cargo.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_cargo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_gremio.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_gremio.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_instituicao.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_instituicao.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_permissao.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_permissao.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_usuario.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_usuario.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_validade.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_validade.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
