@@ -11,17 +11,17 @@ class UsuarioDAO:
             """
             INSERT INTO Usuario (nome, cpf, email, ra, senha, gremio_id)
             VALUES (%s, %s, %s, %s, %s, %s)
-            RETURNING id
+            RETURNING id_elo
             """,
             (nome, cpf, email, ra, senha, gremio_id)
         )
 
-        id = cursor.fetchone()[0]
+        id_elo = cursor.fetchone()[0]
 
         self.connection.commit()
         cursor.close()
 
-        return {"id": id,
+        return {"id_elo": id_elo,
                 "nome": nome,
                 "cpf": cpf,
                 "email": email,
@@ -29,16 +29,16 @@ class UsuarioDAO:
                 "senha": senha,
                 "gremio_id": gremio_id}
 
-    def get_by_id(self, id):
+    def get_by_id(self, id_elo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT id, nome, cpf, email, ra, senha, gremio_id
+            SELECT id_elo, nome, cpf, email, ra, senha, gremio_id
             FROM Usuario
-            WHERE id = %s
+            WHERE id_elo = %s
             """,
-            (id,)
+            (id_elo,)
         )
 
         row = cursor.fetchone()
@@ -48,7 +48,7 @@ class UsuarioDAO:
             return None
 
         return {
-            "id": row[0],
+            "id_elo": row[0],
             "nome": row[1],
             "cpf": row[2],
             "email": row[3],
@@ -61,13 +61,13 @@ class UsuarioDAO:
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT id, nome, cpf, email, ra, senha, gremio_id
+            SELECT id_elo, nome, cpf, email, ra, senha, gremio_id
             FROM Usuario
         """)
 
         usuarios = [
             {
-                "id": row[0],
+                "id_elo": row[0],
                 "nome": row[1],
                 "cpf": row[2],
                 "email": row[3],
@@ -93,7 +93,7 @@ class UsuarioDAO:
                 ra = %s,
                 senha = %s,
                 gremio_id = %s
-            WHERE id = %s
+            WHERE id_elo = %s
             """,
             (
                 usuario.nome,
@@ -102,7 +102,7 @@ class UsuarioDAO:
                 usuario.ra,
                 usuario.senha,
                 usuario.gremio_id,
-                usuario.id
+                usuario.id_elo
             )
         )
 

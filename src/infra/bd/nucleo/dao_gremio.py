@@ -11,32 +11,32 @@ class GremioDAO:
             """
             INSERT INTO gremio (nome, instituicao, etapa_ensino, legitimado)
             VALUES (%s, %s, %s, %s)
-            RETURNING id
+            RETURNING id_elo
             """,
             (nome, instituicao, etapa_ensino, legitimado)
         )
 
-        id = cursor.fetchone()[0]
+        id_elo = cursor.fetchone()[0]
 
         self.connection.commit()
         cursor.close()
 
-        return {"id": id,
+        return {"id_elo": id_elo,
                 "nome": nome,
-                "isntituicao": instituicao,
+                "instituicao": instituicao,
                 "etapa_ensino": etapa_ensino,
-                "legitimidade": legitimado}
+                "legitimado": legitimado}
 
-    def get_by_id(self, id):
+    def get_by_id(self, id_elo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT id, nome, instituicao, etapa_ensino, legitimado
+            SELECT id_elo, nome, instituicao, etapa_ensino, legitimado
             FROM gremio
-            WHERE id = %s
+            WHERE id_elo = %s
             """,
-            (id,)
+            (id_elo,)
         )
 
         row = cursor.fetchone()
@@ -46,7 +46,7 @@ class GremioDAO:
             return None
 
         return {
-            "id": row[0],
+            "id_elo": row[0],
             "nome": row[1],
             "instituicao": row[2],
             "etapa_ensino": row[3],
@@ -57,13 +57,13 @@ class GremioDAO:
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT id, nome, instituicao, etapa_ensino, legitimado
+            SELECT id_elo, nome, instituicao, etapa_ensino, legitimado
             FROM gremio
         """)
 
         gremios = [
             {
-                "id": row[0],
+                "id_elo": row[0],
                 "nome": row[1],
                 "instituicao": row[2],
                 "etapa_ensino": row[3],
@@ -85,14 +85,14 @@ class GremioDAO:
                 instituicao = %s,
                 etapa_ensino = %s,
                 legitimado = %s
-            WHERE id = %s
+            WHERE id_elo = %s
             """,
             (
                 gremio.nome,
                 gremio.instituicao,
                 gremio.etapa_ensino,
                 gremio.legitimado,
-                gremio.id
+                gremio.id_elo
             )
         )
 

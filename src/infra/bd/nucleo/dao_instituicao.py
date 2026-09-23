@@ -10,30 +10,30 @@ class InstituicaoDAO:
         cursor.execute(
             """
             INSERT INTO instituicao (nome, endereco)
-            VALUES (%s, %s) RETURNING id
+            VALUES (%s, %s) RETURNING id_elo
             """,
             (nome, endereco)
         )
 
-        id = cursor.fetchone()[0]
+        id_elo = cursor.fetchone()[0]
 
         self.connection.commit()
         cursor.close()
 
-        return {"id": id,
+        return {"id_elo": id_elo,
                 "nome": nome,
                 "endereco": endereco}
 
-    def get_by_id(self, id):
+    def get_by_id(self, id_elo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT id, nome, endereco
+            SELECT id_elo, nome, endereco
             FROM instituicao
-            WHERE id = %s
+            WHERE id_elo = %s
             """,
-            (id,)
+            (id_elo,)
         )
 
         row = cursor.fetchone()
@@ -43,7 +43,7 @@ class InstituicaoDAO:
             return None
 
         return {
-            "id": row[0],
+            "id_elo": row[0],
             "nome": row[1],
             "endereco": row[2]
         }
@@ -52,13 +52,13 @@ class InstituicaoDAO:
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT id, nome, endereco
+            SELECT id_elo, nome, endereco
             FROM instituicao
             """)
 
         instituicoes = [
             {
-                "id": row[0],
+                "id_elo": row[0],
                 "nome": row[1],
                 "endereco": row[2]
             }
@@ -74,14 +74,14 @@ class InstituicaoDAO:
         cursor.execute(
             """
             UPDATE instituicao
-            SET nome      = %s,
+            SET nome = %s,
                 endereco = %s
-            WHERE id = %s
+            WHERE id_elo = %s
             """,
             (
                 instituicao.nome,
                 instituicao.endereco,
-                instituicao.id
+                instituicao.id_elo
             )
         )
 

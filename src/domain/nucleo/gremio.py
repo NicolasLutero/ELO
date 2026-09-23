@@ -1,8 +1,8 @@
 
 
 class Gremio:
-    def __init__(self, id, nome, instituicao, etapa_ensino, legitimado=False):
-        self.id = id
+    def __init__(self, id_elo, nome, instituicao, etapa_ensino, legitimado=False):
+        self.id = id_elo
         self.nome = nome
         self.instituicao = instituicao
         self.etapa_ensino = etapa_ensino

@@ -6,4 +6,4 @@ class Cargo:
         self.nome = nome
         self.descricao = descricao
         self.vagas = vagas
-        self.gremio = gremio_id
+        self.gremio_id = gremio_id

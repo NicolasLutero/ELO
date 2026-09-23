@@ -8,32 +8,32 @@ class PermissaoDAO:
         cursor = self.connection.cursor()
 
         cursor.execute(
-             """
+            """
             INSERT INTO permissao (nome, descricao)
-            VALUES (%s, %s) RETURNING id
+            VALUES (%s, %s) RETURNING id_elo
             """,
             (nome, descricao)
         )
 
-        id = cursor.fetchone()[0]
+        id_elo = cursor.fetchone()[0]
 
         self.connection.commit()
         cursor.close()
 
-        return {"id": id,
+        return {"id_elo": id_elo,
                 "nome": nome,
                 "descricao": descricao}
 
-    def get_by_id(self, id):
+    def get_by_id(self, id_elo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT id, nome, descricao
+            SELECT id_elo, nome, descricao
             FROM permissao
-            WHERE id = %s
+            WHERE id_elo = %s
             """,
-            (id,)
+            (id_elo,)
         )
 
         row = cursor.fetchone()
@@ -43,7 +43,7 @@ class PermissaoDAO:
             return None
 
         return {
-            "id": row[0],
+            "id_elo": row[0],
             "nome": row[1],
             "descricao": row[2]
         }
@@ -52,13 +52,13 @@ class PermissaoDAO:
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT id, nome, descricao
+            SELECT id_elo, nome, descricao
             FROM permissao
          """)
 
         permissoes = [
             {
-                "id": row[0],
+                "id_elo": row[0],
                 "nome": row[1],
                 "descricao": row[2]
             }
@@ -76,12 +76,12 @@ class PermissaoDAO:
             UPDATE permissao
             SET nome     = %s,
                 descricao = %s
-            WHERE id = %s
+            WHERE id_elo = %s
             """,
             (
                 permissao.nome,
                 permissao.descricao,
-                permissao.id
+                permissao.id_elo
             )
         )
 
