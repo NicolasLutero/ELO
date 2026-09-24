@@ -3,6 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="8613e378-1ffc-4f3a-8fd6-5a01b559ebc7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/nucleo/canal.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/complementos/canal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/nucleo/comunicado.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/complementos/comunicado.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/nucleo/enquete.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/complementos/enquete.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/nucleo/evento.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/complementos/evento.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/nucleo/mensagem.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/complementos/mensagem.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_canal.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infra/bd/complementos/dao_canal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_comunicado.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infra/bd/complementos/dao_comunicado.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_enquete.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infra/bd/complementos/dao_enquete.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_evento.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infra/bd/complementos/dao_evento.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_mensagem.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infra/bd/complementos/dao_mensagem.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,31 +50,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/henri/PycharmProjects/ELO/src/infra/bd&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Nicol/OneDrive/Desktop/Projetos Python/IFSP/ELO",
+    "nodejs_package_manager_path": "npm"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\henri\PycharmProjects\ELO\src\infra\bd" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Nicol\OneDrive\Desktop\Projetos Python\IFSP\ELO\src\domain\complementos" />
+      <recent name="C:\Users\Nicol\OneDrive\Desktop\Projetos Python\IFSP\ELO\src\infra\bd\complementos" />
+      <recent name="C:\Users\Nicol\OneDrive\Desktop\Projetos Python\IFSP\ELO\src\infra\bd" />
+      <recent name="C:\Users\Nicol\OneDrive\Desktop\Projetos Python\IFSP\ELO\src\domain" />
       <recent name="C:\Users\Nicol\OneDrive\Desktop\Projetos Python\IFSP\ELO\src\domain\nucleo" />
-      <recent name="C:\Users\Nicol\OneDrive\Desktop\Projetos Python\IFSP\ELO\src\infra\bd\nucleo" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-0978a7220b69-9867c7d4c0a4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.28294.336" />
+        <option value="bundled-python-sdk-50341a9f1f9c-c2ffad84badb-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-261.26222.68" />
       </set>
     </attachedChunks>
   </component>
