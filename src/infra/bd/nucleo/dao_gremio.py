@@ -143,3 +143,23 @@ class GremioDAO:
 
         self.connection.commit()
         cursor.close()
+
+    def create_permissoes(self, gremio_id_elo, att_per):
+        cursor = self.connection.cursor()
+
+        columns = ["gremio_id_elo"] + list(att_per.keys())
+        values = [gremio_id_elo] + list(att_per.values())
+
+        placeholders = ", ".join(["%s"] * len(values))
+        columns_sql = ", ".join(columns)
+
+        cursor.execute(
+            f"""
+            INSERT INTO gremio_permissoes ({columns_sql})
+            VALUES ({placeholders})
+            """,
+            values
+        )
+
+        self.connection.commit()
+        cursor.close()

@@ -5,8 +5,8 @@ from src.infra.bd.nucleo.dao_gremio import GremioDAO
 from src.domain.nucleo.usuario import Usuario
 from src.domain.nucleo.gremio import Gremio
 
-from src.application.erros.usuario_erro import CPFJaCadastradoErro, EmailJaCadastradoErro, RAJaCadastradoErro
-from src.application.erros.usuario_nao_existe_erro import UsuarioNaoExisteErro
+from src.application.erros.usuario_erro import CPFJaCadastradoErro, EmailJaCadastradoErro, RAJaCadastradoErro, \
+    UsuarioNaoExisteErro
 
 
 class ServicoUsuario:

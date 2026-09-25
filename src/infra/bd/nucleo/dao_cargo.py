@@ -97,3 +97,63 @@ class CargoDAO:
 
         self.connection.commit()
         cursor.close()
+
+    def add_permissao(self, cargo_id_elo, permissao_id_elo):
+        cursor = self.connection.cursor()
+
+        cursor.execute(
+            """
+            INSERT INTO cargo_concede_permissao
+                (cargo_id_elo, permissao_id_elo)
+            VALUES (%s, %s)
+            """,
+            (cargo_id_elo, permissao_id_elo)
+        )
+
+        self.connection.commit()
+        cursor.close()
+
+
+    def remove_permissao(self, cargo_id_elo, permissao_id_elo):
+        cursor = self.connection.cursor()
+
+        cursor.execute(
+            """
+            DELETE FROM cargo_concede_permissao
+            WHERE cargo_id_elo = %s
+              AND permissao_id_elo = %s
+            """,
+            (cargo_id_elo, permissao_id_elo)
+        )
+
+        self.connection.commit()
+        cursor.close()
+
+    def add_cargo(self, usuario_id_elo, cargo_id_elo):
+        cursor = self.connection.cursor()
+
+        cursor.execute(
+            """
+            INSERT INTO ocupa (usuario_id_elo, cargo_id_elo)
+            VALUES (%s, %s)
+            """,
+            (usuario_id_elo, cargo_id_elo)
+        )
+
+        self.connection.commit()
+        cursor.close()
+
+    def remove_cargo(self, usuario_id_elo, cargo_id_elo):
+        cursor = self.connection.cursor()
+
+        cursor.execute(
+            """
+            DELETE FROM ocupa
+            WHERE usuario_id_elo = %s
+              AND cargo_id_elo = %s
+            """,
+            (usuario_id_elo, cargo_id_elo)
+        )
+
+        self.connection.commit()
+        cursor.close()
