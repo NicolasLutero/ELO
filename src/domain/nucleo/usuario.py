@@ -2,7 +2,7 @@
 
 class Usuario:
     def __init__(self, id_elo, nome, cpf, email, ra, senha, gremio_id=None):
-        self.id = id_elo
+        self.id_elo = id_elo
         self.nome = nome
         self.cpf = cpf
         self.email = email

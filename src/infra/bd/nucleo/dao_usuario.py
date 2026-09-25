@@ -57,6 +57,32 @@ class UsuarioDAO:
             "gremio_id": row[6]
         }
 
+    def check_availability_cpf(self, cpf):
+        return self._check_availability("cpf = %s", cpf)
+
+    def check_availability_email(self, email):
+        return self._check_availability("email = %s", email)
+
+    def check_availability_ra(self, ra):
+        return self._check_availability("ra = %s", ra)
+
+    def _check_availability(self, sql, valor):
+        cursor = self.connection.cursor()
+
+        cursor.execute(
+            f"""
+                SELECT count(id_elo)
+                FROM usuario
+                WHERE {sql}
+            """,
+            (valor,)
+        )
+
+        row = cursor.fetchone()
+        cursor.close()
+
+        return row[0] == 0
+
     def get_all(self):
         cursor = self.connection.cursor()
 

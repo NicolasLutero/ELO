@@ -1,3 +1,4 @@
+from pathlib import Path
 import psycopg2, json
 
 
@@ -9,5 +10,6 @@ class ConnectionFactory:
 
     @staticmethod
     def carregar_configuracao():
-        with open("connection_config.json", "r", encoding="utf-8") as arquivo:
+        caminho = Path(__file__).parent / "connection_config.json"
+        with open(caminho, "r", encoding="utf-8") as arquivo:
             return json.load(arquivo)
