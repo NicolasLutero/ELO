@@ -10,3 +10,11 @@ class EmailJaCadastradoErro(Exception):
 class RAJaCadastradoErro(Exception):
     def __init__(self, mensagem="Já existe usuário com esse RA."):
         super().__init__(mensagem)
+
+class UsuarioNaoExisteErro(Exception):
+    def __init__(self, mensagem="Usuário não existe."):
+        super().__init__(mensagem)
+
+class UsuarioNaoTemRAErro(Exception):
+    def __init__(self, mensagem="Este Usuário não tem RA."):
+        super().__init__(mensagem)

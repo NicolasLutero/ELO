@@ -2,24 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8613e378-1ffc-4f3a-8fd6-5a01b559ebc7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/pySourceRootDetection.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/application/erros/usuario_ja_existe_erro.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/application/erros/usuario_nao_existe_erro.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/application/servico_gremio.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/application/servico_usuario.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/infra/api_externa/gremio_por_ra.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/application/erros/gremio_erro.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/domain/nucleo/etapa.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/complementos/comunicado.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/complementos/comunicado.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/complementos/enquete.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/complementos/enquete.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/complementos/evento.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/complementos/evento.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/nucleo/gremio.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/nucleo/gremio.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/nucleo/instituicao.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/nucleo/instituicao.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/nucleo/permissao.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/nucleo/permissao.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/nucleo/usuario.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/nucleo/usuario.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/nucleo/validade.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/nucleo/validade.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/infra/bd/connection_factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infra/bd/connection_factory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_usuario.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_usuario.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/erros/usuario_ja_existe_erro.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/erros/usuario_erro.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/erros/usuario_nao_existe_erro.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/servico_gremio.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/servico_gremio.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/servico_usuario.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/servico_usuario.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/infra/api_externa/gremio_por_ra.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infra/api_externa/instituicao_etapa_por_ra.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_gremio.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infra/bd/nucleo/dao_gremio.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,11 +69,11 @@
       <recent name="C:\Users\henri\PycharmProjects\ELO\src\infra\bd" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Nicol\OneDrive\Desktop\Projetos Python\IFSP\ELO\src\application\erros" />
+      <recent name="C:\Users\Nicol\OneDrive\Desktop\Projetos Python\IFSP\ELO\src\application\erros\servico_usuario" />
       <recent name="C:\Users\Nicol\OneDrive\Desktop\Projetos Python\IFSP\ELO\src\infra\api_externa" />
       <recent name="C:\Users\Nicol\OneDrive\Desktop\Projetos Python\IFSP\ELO\src\domain\complementos" />
       <recent name="C:\Users\Nicol\OneDrive\Desktop\Projetos Python\IFSP\ELO\src\infra\bd\complementos" />
-      <recent name="C:\Users\Nicol\OneDrive\Desktop\Projetos Python\IFSP\ELO\src\infra\bd" />
-      <recent name="C:\Users\Nicol\OneDrive\Desktop\Projetos Python\IFSP\ELO\src\domain" />
     </key>
   </component>
   <component name="RunManager">

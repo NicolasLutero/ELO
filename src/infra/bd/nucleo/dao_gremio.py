@@ -75,6 +75,51 @@ class GremioDAO:
         cursor.close()
         return gremios
 
+    def get_by_inst_etapa(self, instituicao_id_elo, etapa):
+        cursor = self.connection.cursor()
+
+        cursor.execute(
+            """
+            SELECT id_elo, nome, instituicao, etapa_ensino, legitimado
+            FROM gremio
+            WHERE instituicao = %s
+                AND etapa_ensino = %s
+            """,
+            (instituicao_id_elo, etapa)
+        )
+
+        row = cursor.fetchone()
+        cursor.close()
+
+        if row is None:
+            return None
+
+        return {
+            "id_elo": row[0],
+            "nome": row[1],
+            "instituicao": row[2],
+            "etapa_ensino": row[3],
+            "legitimado": row[4],
+        }
+
+    def check_availability_inst_etapa(self, inst, etapa):
+        cursor = self.connection.cursor()
+
+        cursor.execute(
+            f"""
+                SELECT count(id_elo)
+                FROM gremio
+                WHERE instituicao_id = %s 
+                    AND etapa_ensino = %s
+            """,
+            (inst, etapa)
+        )
+
+        row = cursor.fetchone()
+        cursor.close()
+
+        return row[0] == 0
+
     def update(self, gremio):
         cursor = self.connection.cursor()
 
