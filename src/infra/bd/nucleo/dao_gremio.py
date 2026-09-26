@@ -9,7 +9,7 @@ class GremioDAO:
 
         cursor.execute(
             """
-            INSERT INTO gremio (nome, instituicao, etapa_ensino, legitimado)
+            INSERT INTO gremio (nome, instituicao_id, etapa_ensino, legitimado)
             VALUES (%s, %s, %s, %s)
             RETURNING id_elo
             """,
@@ -32,7 +32,7 @@ class GremioDAO:
 
         cursor.execute(
             """
-            SELECT id_elo, nome, instituicao, etapa_ensino, legitimado
+            SELECT id_elo, nome, instituicao_id, etapa_ensino, legitimado, cargo_adm_id_elo
             FROM gremio
             WHERE id_elo = %s
             """,
@@ -51,13 +51,14 @@ class GremioDAO:
             "instituicao": row[2],
             "etapa_ensino": row[3],
             "legitimado": row[4],
+            "cargo_adm_id_elo": row[5]
         }
 
     def get_all(self):
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT id_elo, nome, instituicao, etapa_ensino, legitimado
+            SELECT id_elo, nome, instituicao_id, etapa_ensino, legitimado, cargo_adm_id_elo
             FROM gremio
         """)
 
@@ -68,6 +69,7 @@ class GremioDAO:
                 "instituicao": row[2],
                 "etapa_ensino": row[3],
                 "legitimado": row[4],
+                "cargo_adm_id_elo": row[5]
             }
             for row in cursor.fetchall()
         ]
@@ -80,9 +82,9 @@ class GremioDAO:
 
         cursor.execute(
             """
-            SELECT id_elo, nome, instituicao, etapa_ensino, legitimado
+            SELECT id_elo, nome, instituicao_id, etapa_ensino, legitimado, cargo_adm_id_elo
             FROM gremio
-            WHERE instituicao = %s
+            WHERE instituicao_id = %s
                 AND etapa_ensino = %s
             """,
             (instituicao_id_elo, etapa)
@@ -100,6 +102,7 @@ class GremioDAO:
             "instituicao": row[2],
             "etapa_ensino": row[3],
             "legitimado": row[4],
+            "cargo_adm_id_elo": row[5]
         }
 
     def check_availability_inst_etapa(self, inst, etapa):
@@ -127,9 +130,10 @@ class GremioDAO:
             """
             UPDATE gremio
             SET nome = %s,
-                instituicao = %s,
+                instituicao_id = %s,
                 etapa_ensino = %s,
-                legitimado = %s
+                legitimado = %s,
+                cargo_adm_id_elo = %s
             WHERE id_elo = %s
             """,
             (
@@ -137,6 +141,7 @@ class GremioDAO:
                 gremio.instituicao,
                 gremio.etapa_ensino,
                 gremio.legitimado,
+                gremio.cargo_adm_id_elo,
                 gremio.id_elo
             )
         )

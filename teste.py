@@ -19,5 +19,4 @@ dao_validade = ValidadeDAO(connection)
 servico_usuario = ServicoUsuario(dao_usuario, dao_gremio)
 servico_gremio = ServicoGremio(dao_gremio, dao_usuario, dao_cargo, dao_permissao, dao_validade)
 
-usuario = dao_usuario.get_by_id(1)
-servico_gremio.criar_gremio(usuario, "Novo Gremio")
+servico_gremio.criar_gremio(8, "Novo Gremio")
