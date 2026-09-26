@@ -22,9 +22,13 @@ class ServicoUsuario:
         if ra is not None and not self.dao_usuario.check_availability_ra(ra):
             raise RAJaCadastradoErro()
 
-        gremio_id = self._id_gremio_dado_ra(ra)
+        # exemplo de uso da api externa para buscar o grêmio pelo RA
+        # gremio_id = self._id_gremio_dado_ra(ra)
+        # dados_novo_usuario = self.dao_usuario.create(nome, cpf, email, ra, senha, gremio_id)
 
-        dados_novo_usuario = self.dao_usuario.create(nome, cpf, email, ra, senha, gremio_id)
+        dados_novo_usuario = self.dao_usuario.create(nome, cpf, email, ra, senha)
+
+
         return Usuario(**dados_novo_usuario)
 
     def registrar_ra(self, usuario_id, ra):
