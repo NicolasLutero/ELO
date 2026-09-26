@@ -4,39 +4,41 @@ class GremioDAO:
     def __init__(self, connection):
         self.connection = connection
 
-    def create(self, nome, instituicao, etapa_ensino, legitimado=False):
+    def create(self, nome, instituicao, etapa_ensino, legitimado=False, fundador_idelo=None, cargo_adm_idelo=None):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            INSERT INTO gremio (nome, instituicao_id, etapa_ensino, legitimado)
-            VALUES (%s, %s, %s, %s)
-            RETURNING id_elo
+            INSERT INTO gremio (nome, instituicao_id, etapa_ensino, legitimado, fundador_idelo, cargo_adm_idelo)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            RETURNING idelo
             """,
-            (nome, instituicao, etapa_ensino, legitimado)
+            (nome, instituicao, etapa_ensino, legitimado, fundador_idelo, cargo_adm_idelo)
         )
 
-        id_elo = cursor.fetchone()[0]
+        idelo = cursor.fetchone()[0]
 
         self.connection.commit()
         cursor.close()
 
-        return {"id_elo": id_elo,
+        return {"idelo": idelo,
                 "nome": nome,
                 "instituicao": instituicao,
                 "etapa_ensino": etapa_ensino,
-                "legitimado": legitimado}
+                "legitimado": legitimado,
+                "fundador_idelo": fundador_idelo,
+                "cargo_adm_idelo": cargo_adm_idelo}
 
-    def get_by_id(self, id_elo):
+    def get_by_id(self, idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT id_elo, nome, instituicao_id, etapa_ensino, legitimado, cargo_adm_id_elo
+            SELECT idelo, nome, instituicao_id, etapa_ensino, legitimado, fundador_idelo, cargo_adm_idelo
             FROM gremio
-            WHERE id_elo = %s
+            WHERE idelo = %s
             """,
-            (id_elo,)
+            (idelo,)
         )
 
         row = cursor.fetchone()
@@ -46,30 +48,32 @@ class GremioDAO:
             return None
 
         return {
-            "id_elo": row[0],
+            "idelo": row[0],
             "nome": row[1],
             "instituicao": row[2],
             "etapa_ensino": row[3],
             "legitimado": row[4],
-            "cargo_adm_id_elo": row[5]
+            "fundador_idelo": row[5],
+            "cargo_adm_idelo": row[6]
         }
 
     def get_all(self):
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT id_elo, nome, instituicao_id, etapa_ensino, legitimado, cargo_adm_id_elo
+            SELECT idelo, nome, instituicao_id, etapa_ensino, legitimado, fundador_idelo, cargo_adm_idelo
             FROM gremio
         """)
 
         gremios = [
             {
-                "id_elo": row[0],
+                "idelo": row[0],
                 "nome": row[1],
                 "instituicao": row[2],
                 "etapa_ensino": row[3],
                 "legitimado": row[4],
-                "cargo_adm_id_elo": row[5]
+                "fundador_idelo": row[5],
+                "cargo_adm_idelo": row[6]
             }
             for row in cursor.fetchall()
         ]
@@ -77,17 +81,17 @@ class GremioDAO:
         cursor.close()
         return gremios
 
-    def get_by_inst_etapa(self, instituicao_id_elo, etapa):
+    def get_by_inst_etapa(self, instituicao_idelo, etapa):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT id_elo, nome, instituicao_id, etapa_ensino, legitimado, cargo_adm_id_elo
+            SELECT idelo, nome, instituicao_id, etapa_ensino, legitimado, fundador_idelo, cargo_adm_idelo
             FROM gremio
             WHERE instituicao_id = %s
                 AND etapa_ensino = %s
             """,
-            (instituicao_id_elo, etapa)
+            (instituicao_idelo, etapa)
         )
 
         row = cursor.fetchone()
@@ -97,12 +101,13 @@ class GremioDAO:
             return None
 
         return {
-            "id_elo": row[0],
+            "idelo": row[0],
             "nome": row[1],
             "instituicao": row[2],
             "etapa_ensino": row[3],
             "legitimado": row[4],
-            "cargo_adm_id_elo": row[5]
+            "fundador_idelo": row[5],
+            "cargo_adm_idelo": row[6]
         }
 
     def check_availability_inst_etapa(self, inst, etapa):
@@ -110,7 +115,7 @@ class GremioDAO:
 
         cursor.execute(
             f"""
-                SELECT count(id_elo)
+                SELECT count(idelo)
                 FROM gremio
                 WHERE instituicao_id = %s 
                     AND etapa_ensino = %s
@@ -133,27 +138,29 @@ class GremioDAO:
                 instituicao_id = %s,
                 etapa_ensino = %s,
                 legitimado = %s,
-                cargo_adm_id_elo = %s
-            WHERE id_elo = %s
+                fundador_idelo = %s,
+                cargo_adm_idelo = %s
+            WHERE idelo = %s
             """,
             (
                 gremio.nome,
                 gremio.instituicao,
                 gremio.etapa_ensino,
                 gremio.legitimado,
-                gremio.cargo_adm_id_elo,
-                gremio.id_elo
+                gremio.fundador_idelo,
+                gremio.cargo_adm_idelo,
+                gremio.idelo
             )
         )
 
         self.connection.commit()
         cursor.close()
 
-    def create_permissoes(self, gremio_id_elo, att_per):
+    def create_permissoes(self, gremio_idelo, att_per):
         cursor = self.connection.cursor()
 
-        columns = ["gremio_id_elo"] + list(att_per.keys())
-        values = [gremio_id_elo] + list(att_per.values())
+        columns = ["gremio_idelo"] + list(att_per.keys())
+        values = [gremio_idelo] + list(att_per.values())
 
         placeholders = ", ".join(["%s"] * len(values))
         columns_sql = ", ".join(columns)

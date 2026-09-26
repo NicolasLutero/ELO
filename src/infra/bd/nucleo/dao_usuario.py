@@ -11,17 +11,17 @@ class UsuarioDAO:
             """
             INSERT INTO Usuario (nome, cpf, email, ra, senha, gremio_id)
             VALUES (%s, %s, %s, %s, %s, %s)
-            RETURNING id_elo
+            RETURNING idelo
             """,
             (nome, cpf, email, ra, senha, gremio_id)
         )
 
-        id_elo = cursor.fetchone()[0]
+        idelo = cursor.fetchone()[0]
 
         self.connection.commit()
         cursor.close()
 
-        return {"id_elo": id_elo,
+        return {"idelo": idelo,
                 "nome": nome,
                 "cpf": cpf,
                 "email": email,
@@ -29,16 +29,16 @@ class UsuarioDAO:
                 "senha": senha,
                 "gremio_id": gremio_id}
 
-    def get_by_id(self, id_elo):
+    def get_by_id(self, idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT id_elo, nome, cpf, email, ra, senha, gremio_id
+            SELECT idelo, nome, cpf, email, ra, senha, gremio_id
             FROM Usuario
-            WHERE id_elo = %s
+            WHERE idelo = %s
             """,
-            (id_elo,)
+            (idelo,)
         )
 
         row = cursor.fetchone()
@@ -48,7 +48,7 @@ class UsuarioDAO:
             return None
 
         return {
-            "id_elo": row[0],
+            "idelo": row[0],
             "nome": row[1],
             "cpf": row[2],
             "email": row[3],
@@ -71,7 +71,7 @@ class UsuarioDAO:
 
         cursor.execute(
             f"""
-                SELECT count(id_elo)
+                SELECT count(idelo)
                 FROM usuario
                 WHERE {sql}
             """,
@@ -87,13 +87,13 @@ class UsuarioDAO:
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT id_elo, nome, cpf, email, ra, senha, gremio_id
+            SELECT idelo, nome, cpf, email, ra, senha, gremio_id
             FROM Usuario
         """)
 
         usuarios = [
             {
-                "id_elo": row[0],
+                "idelo": row[0],
                 "nome": row[1],
                 "cpf": row[2],
                 "email": row[3],
@@ -119,7 +119,7 @@ class UsuarioDAO:
                 ra = %s,
                 senha = %s,
                 gremio_id = %s
-            WHERE id_elo = %s
+            WHERE idelo = %s
             """,
             (
                 usuario.nome,
@@ -128,7 +128,7 @@ class UsuarioDAO:
                 usuario.ra,
                 usuario.senha,
                 usuario.gremio_id,
-                usuario.id_elo
+                usuario.idelo
             )
         )
 

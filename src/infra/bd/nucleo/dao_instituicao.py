@@ -10,30 +10,30 @@ class InstituicaoDAO:
         cursor.execute(
             """
             INSERT INTO instituicao (nome, endereco)
-            VALUES (%s, %s) RETURNING id_elo
+            VALUES (%s, %s) RETURNING idelo
             """,
             (nome, endereco)
         )
 
-        id_elo = cursor.fetchone()[0]
+        idelo = cursor.fetchone()[0]
 
         self.connection.commit()
         cursor.close()
 
-        return {"id_elo": id_elo,
+        return {"idelo": idelo,
                 "nome": nome,
                 "endereco": endereco}
 
-    def get_by_id(self, id_elo):
+    def get_by_id(self, idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT id_elo, nome, endereco
+            SELECT idelo, nome, endereco
             FROM instituicao
-            WHERE id_elo = %s
+            WHERE idelo = %s
             """,
-            (id_elo,)
+            (idelo,)
         )
 
         row = cursor.fetchone()
@@ -43,7 +43,7 @@ class InstituicaoDAO:
             return None
 
         return {
-            "id_elo": row[0],
+            "idelo": row[0],
             "nome": row[1],
             "endereco": row[2]
         }
@@ -52,13 +52,13 @@ class InstituicaoDAO:
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT id_elo, nome, endereco
+            SELECT idelo, nome, endereco
             FROM instituicao
             """)
 
         instituicoes = [
             {
-                "id_elo": row[0],
+                "idelo": row[0],
                 "nome": row[1],
                 "endereco": row[2]
             }
@@ -76,12 +76,12 @@ class InstituicaoDAO:
             UPDATE instituicao
             SET nome = %s,
                 endereco = %s
-            WHERE id_elo = %s
+            WHERE idelo = %s
             """,
             (
                 instituicao.nome,
                 instituicao.endereco,
-                instituicao.id_elo
+                instituicao.idelo
             )
         )
 

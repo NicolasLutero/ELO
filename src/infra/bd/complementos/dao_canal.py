@@ -4,39 +4,41 @@ class CanalDAO:
     def __init__(self, connection):
         self.connection = connection
 
-    def create(self, nome, descricao, gremio_id):
+    def create(self, nome, descricao, gremio_id, criador_idelo, cargo_adm_idelo=None):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            INSERT INTO canal (nome, descricao, gremio_id)
-            VALUES (%s, %s, %s)
-            RETURNING id_elo
+            INSERT INTO canal (nome, descricao, gremio_id, criador_idelo, cargo_adm_idelo)
+            VALUES (%s, %s, %s, %s, %s)
+            RETURNING idelo
             """,
-            (nome, descricao, gremio_id)
+            (nome, descricao, gremio_id, criador_idelo, cargo_adm_idelo)
         )
 
-        id_elo = cursor.fetchone()[0]
+        idelo = cursor.fetchone()[0]
 
         self.connection.commit()
         cursor.close()
 
         return {
-            "id_elo": id_elo,
+            "idelo": idelo,
             "nome": nome,
             "descricao": descricao,
-            "gremio_id": gremio_id}
+            "gremio_id": gremio_id,
+            "criador_idelo": criador_idelo,
+            "cargo_adm_idelo": cargo_adm_idelo}
 
-    def get_by_id(self, id_elo):
+    def get_by_id(self, idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT id_elo, nome, descricao, gremio_id
+            SELECT idelo, nome, descricao, gremio_id, criador_idelo, cargo_adm_idelo
             FROM canal
-            WHERE id_elo = %s
+            WHERE idelo = %s
             """,
-            (id_elo,)
+            (idelo,)
         )
 
         row = cursor.fetchone()
@@ -46,26 +48,30 @@ class CanalDAO:
             return None
 
         return {
-            "id_elo": row[0],
+            "idelo": row[0],
             "nome": row[1],
             "descricao": row[2],
-            "gremio_id": row[3]
+            "gremio_id": row[3],
+            "criador_idelo": row[4],
+            "cargo_adm_idelo": row[5]
         }
 
     def get_all(self):
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT id_elo, nome, descricao, gremio_id
+            SELECT idelo, nome, descricao, gremio_id, criador_idelo, cargo_adm_idelo
             FROM canal
         """)
 
         canais = [
             {
-                "id_elo": row[0],
+                "idelo": row[0],
                 "nome": row[1],
                 "descricao": row[2],
-                "gremio_id": row[3]
+                "gremio_id": row[3],
+                "criador_idelo": row[4],
+                "cargo_adm_idelo": row[5]
             }
             for row in cursor.fetchall()
         ]
@@ -81,15 +87,39 @@ class CanalDAO:
             UPDATE canal
             SET nome = %s,
                 descricao = %s,
-                gremio_id = %s
-            WHERE id_elo = %s
+                gremio_id = %s,
+                criador_idelo = %s,
+                cargo_adm_idelo = %s
+            WHERE idelo = %s
             """,
             (
                 canal.nome,
                 canal.descricao,
                 canal.gremio_id,
-                canal.id_elo
+                canal.criador_idelo,
+                canal.cargo_adm_idelo,
+                canal.idelo
             )
+        )
+
+        self.connection.commit()
+        cursor.close()
+
+    def create_permissoes(self, canal_idelo, att_per):
+        cursor = self.connection.cursor()
+
+        columns = ["canal_idelo"] + list(att_per.keys())
+        values = [canal_idelo] + list(att_per.values())
+
+        placeholders = ", ".join(["%s"] * len(values))
+        columns_sql = ", ".join(columns)
+
+        cursor.execute(
+            f"""
+            INSERT INTO canal_permissoes ({columns_sql})
+            VALUES ({placeholders})
+            """,
+            values
         )
 
         self.connection.commit()

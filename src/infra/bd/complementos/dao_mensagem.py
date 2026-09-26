@@ -11,31 +11,31 @@ class MensagemDAO:
             """
             INSERT INTO mensagem (texto, data_envio, canal_id, usuario_id)
             VALUES (%s, %s, %s, %s)
-            RETURNING id_elo
+            RETURNING idelo
             """,
             (texto, data_envio, canal_id, usuario_id)
         )
-        id_elo = cursor.fetchone()[0]
+        idelo = cursor.fetchone()[0]
         self.connection.commit()
         cursor.close()
 
         return {
-            "id_elo": id_elo,
+            "idelo": idelo,
             "texto": texto,
             "data_envio": data_envio,
             "canal_id": canal_id,
             "usuario_id": usuario_id}
 
-    def get_by_id(self, id_elo):
+    def get_by_id(self, idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT id_elo, texto, data_envio, canal_id, usuario_id
+            SELECT idelo, texto, data_envio, canal_id, usuario_id
             FROM mensagem
-            WHERE id_elo = %s
+            WHERE idelo = %s
             """,
-            (id_elo,)
+            (idelo,)
         )
 
         row = cursor.fetchone()
@@ -45,7 +45,7 @@ class MensagemDAO:
             return None
 
         return {
-            "id_elo": row[0],
+            "idelo": row[0],
             "texto": row[1],
             "data_envio": row[2],
             "canal_id": row[3],
@@ -56,13 +56,13 @@ class MensagemDAO:
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT id_elo, texto, data_envio, canal_id, usuario_id
+            SELECT idelo, texto, data_envio, canal_id, usuario_id
             FROM mensagem
         """)
 
         mensagens = [
             {
-                "id_elo": row[0],
+                "idelo": row[0],
                 "texto": row[1],
                 "data_envio": row[2],
                 "canal_id": row[3],
@@ -84,14 +84,14 @@ class MensagemDAO:
                 data_envio = %s,
                 canal_id = %s,
                 usuario_id = %s
-            WHERE id_elo = %s
+            WHERE idelo = %s
             """,
             (
                 mensagem.texto,
                 mensagem.data_envio,
                 mensagem.canal_id,
                 mensagem.usuario_id,
-                mensagem.id_elo
+                mensagem.idelo
             )
         )
 

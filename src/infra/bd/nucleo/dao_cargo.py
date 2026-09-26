@@ -9,34 +9,33 @@ class CargoDAO:
 
         cursor.execute(
             """
-            INSERT INTO cargo (nome, descricao, vagas, gremio_id)
-            VALUES (%s, %s, %s, %s)
-            RETURNING id_elo
+            INSERT INTO cargo (nome, descricao, vagas)
+            VALUES (%s, %s, %s)
+            RETURNING idelo
             """,
-            (nome, descricao, vagas, gremio_id)
+            (nome, descricao, vagas)
         )
 
-        id_elo = cursor.fetchone()[0]
+        idelo = cursor.fetchone()[0]
 
         self.connection.commit()
         cursor.close()
 
-        return {"id_elo": id_elo,
+        return {"idelo": idelo,
                 "nome": nome,
                 "descricao": descricao,
-                "vagas": vagas,
-                "gremio_id": gremio_id}
+                "vagas": vagas}
 
-    def get_by_id(self, id_elo):
+    def get_by_id(self, idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT id_elo, nome, descricao, vagas, gremio_id
+            SELECT idelo, nome, descricao, vagas
             FROM cargo
-            WHERE id_elo = %s
+            WHERE idelo = %s
             """,
-            (id_elo,)
+            (idelo,)
         )
 
         row = cursor.fetchone()
@@ -45,28 +44,26 @@ class CargoDAO:
         if row is None:
             return None
 
-        return {"id_elo": row[0],
+        return {"idelo": row[0],
                 "nome": row[1],
                 "descricao": row[2],
-                "vagas": row[3],
-                "gremio_id": row[4]
+                "vagas": row[3]
                 }
 
     def get_all(self):
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT id_elo, nome, descricao, vagas, gremio_id
+            SELECT idelo, nome, descricao, vagas
             FROM cargo
         """)
 
         cargos = [
             {
-                "id_elo": row[0],
+                "idelo": row[0],
                 "nome": row[1],
                 "descricao": row[2],
-                "vagas": row[3],
-                "gremio_id": row[4]
+                "vagas": row[3]
             }
             for row in cursor.fetchall()
         ]
@@ -82,77 +79,75 @@ class CargoDAO:
             UPDATE cargo
             SET nome = %s,
                 descricao = %s,
-                vagas = %s,
-                gremio_id = %s
-            WHERE id_elo = %s
+                vagas = %s
+            WHERE idelo = %s
             """,
             (
                 cargo.nome,
                 cargo.descricao,
                 cargo.vagas,
-                cargo.gremio_id,
-                cargo.id_elo
+                cargo.idelo
             )
         )
 
         self.connection.commit()
         cursor.close()
 
-    def add_permissao(self, cargo_id_elo, permissao_id_elo):
+    def add_permissao(self, cargo_idelo, permissao_idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
             INSERT INTO cargo_concede_permissao
-                (cargo_id_elo, permissao_id_elo)
+                (cargo_idelo, permissao_idelo)
             VALUES (%s, %s)
             """,
-            (cargo_id_elo, permissao_id_elo)
+            (cargo_idelo, permissao_idelo)
         )
 
         self.connection.commit()
         cursor.close()
 
 
-    def remove_permissao(self, cargo_id_elo, permissao_id_elo):
+    def remove_permissao(self, cargo_idelo, permissao_idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
             DELETE FROM cargo_concede_permissao
-            WHERE cargo_id_elo = %s
-              AND permissao_id_elo = %s
+            WHERE cargo_idelo = %s
+              AND permissao_idelo = %s
             """,
-            (cargo_id_elo, permissao_id_elo)
+            (cargo_idelo, permissao_idelo)
         )
 
         self.connection.commit()
         cursor.close()
 
-    def add_cargo(self, usuario_id_elo, cargo_id_elo):
+    def add_cargo(self, usuario_idelo, cargo_idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            INSERT INTO ocupa (usuario_id_elo, cargo_id_elo)
+            INSERT INTO ocupa (usuario_idelo, cargo_idelo)
             VALUES (%s, %s)
             """,
-            (usuario_id_elo, cargo_id_elo)
+            (usuario_idelo, cargo_idelo)
         )
 
         self.connection.commit()
         cursor.close()
 
-    def remove_cargo(self, usuario_id_elo, cargo_id_elo):
+    def remove_cargo(self, usuario_idelo, cargo_idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
             DELETE FROM ocupa
-            WHERE usuario_id_elo = %s
-              AND cargo_id_elo = %s
+            WHERE usuario_idelo = %s
+              AND cargo_idelo = %s
             """,
-            (usuario_id_elo, cargo_id_elo)
+            (usuario_idelo, cargo_idelo)
         )
 
         self.connection.commit()

@@ -1,8 +1,8 @@
 
 
 class Usuario:
-    def __init__(self, id_elo, nome, cpf, email, ra, senha, gremio_id=None):
-        self.id_elo = id_elo
+    def __init__(self, idelo, nome, cpf, email, ra, senha, gremio_id=None):
+        self.idelo = idelo
         self.nome = nome
         self.cpf = cpf
         self.email = email

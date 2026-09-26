@@ -1,8 +1,8 @@
 
 
 class Cargo:
-    def __init__(self, id_elo, nome, descricao, vagas, gremio_id):
-        self.id_elo = id_elo
+    def __init__(self, idelo, nome, descricao, vagas, gremio_id):
+        self.idelo = idelo
         self.nome = nome
         self.descricao = descricao
         self.vagas = vagas

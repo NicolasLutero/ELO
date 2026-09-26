@@ -1,7 +1,7 @@
 
 
 class Permissao:
-    def __init__(self, id_elo, nome, descricao):
-        self.id_elo = id_elo
+    def __init__(self, idelo, nome, descricao):
+        self.idelo = idelo
         self.nome = nome
         self.descricao = descricao

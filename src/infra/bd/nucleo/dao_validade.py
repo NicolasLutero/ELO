@@ -10,31 +10,31 @@ class ValidadeDAO:
         cursor.execute(
              """
             INSERT INTO validade (data_inicio, data_fim, cargo_id)
-            VALUES (%s, %s, %s) RETURNING id_elo
+            VALUES (%s, %s, %s) RETURNING idelo
             """,
             (data_inicio, data_fim, cargo_id)
         )
 
-        id_elo = cursor.fetchone()[0]
+        idelo = cursor.fetchone()[0]
 
         self.connection.commit()
         cursor.close()
 
-        return {"id_elo": id_elo,
+        return {"idelo": idelo,
                 "data_inicio": data_inicio,
                 "data_fim": data_fim,
                 "cargo_id": cargo_id}
 
-    def get_by_id(self, id_elo):
+    def get_by_id(self, idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT id_elo, data_inicio, data_fim, cargo_id
+            SELECT idelo, data_inicio, data_fim, cargo_id
             FROM validade
-            WHERE id_elo = %s
+            WHERE idelo = %s
             """,
-            (id_elo,)
+            (idelo,)
         )
 
         row = cursor.fetchone()
@@ -44,7 +44,7 @@ class ValidadeDAO:
             return None
 
         return {
-            "id_elo": row[0],
+            "idelo": row[0],
             "data_inicio": row[1],
             "data_fim": row[2],
             "cargo_id": row[3]
@@ -54,13 +54,13 @@ class ValidadeDAO:
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT id_elo, data_inicio, data_fim, cargo_id
+            SELECT idelo, data_inicio, data_fim, cargo_id
             FROM validade
          """)
 
         validades = [
             {
-                "id_elo": row[0],
+                "idelo": row[0],
                 "data_inicio": row[1],
                 "data_fim": row[2],
                 "cargo_id": row[3]
@@ -80,13 +80,13 @@ class ValidadeDAO:
             SET data_inicio = %s,
                 data_fim = %s,
                 cargo_id = %s
-            WHERE id_elo = %s
+            WHERE idelo = %s
             """,
             (
                 validade.data_inicio,
                 validade.data_fim,
                 validade.cargo_id,
-                validade.id_elo
+                validade.idelo
             )
         )
 
