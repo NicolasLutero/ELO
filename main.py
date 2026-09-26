@@ -1,23 +1,23 @@
-from src.application.servico_gremio import ServicoGremio
-from src.infra.bd.connection_factory import ConnectionFactory
-from src.infra.bd.nucleo.dao_cargo import CargoDAO
-from src.infra.bd.nucleo.dao_gremio import GremioDAO
-from src.infra.bd.nucleo.dao_permissao import PermissaoDAO
-from src.infra.bd.nucleo.dao_usuario import UsuarioDAO
-from src.infra.bd.nucleo.dao_validade import ValidadeDAO
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from src.presentation.routers import api_router
 
-from src.application.servico_usuario import ServicoUsuario
+app = FastAPI(
+    title="ELO API",
+    description="Backend do sistema ELO integrado com React",
+    version="1.0.0"
+)
 
-connection = ConnectionFactory().get_connection()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-dao_usuario = UsuarioDAO(connection)
-dao_gremio = GremioDAO(connection)
-dao_cargo = CargoDAO(connection)
-dao_permissao = PermissaoDAO(connection)
-dao_validade = ValidadeDAO(connection)
+app.include_router(api_router)
 
-servico_usuario = ServicoUsuario(dao_usuario, dao_gremio)
-servico_gremio = ServicoGremio(dao_gremio, dao_usuario, dao_cargo, dao_permissao, dao_validade)
-
-usuario = dao_usuario.get_by_id(1)
-servico_gremio.criar_gremio(usuario, "Novo Gremio")
+@app.get("/", tags=["Health Check"])
+def health_check():
+    return {"status": "ok", "mensagem": "API ELO rodando com sucesso!"}
