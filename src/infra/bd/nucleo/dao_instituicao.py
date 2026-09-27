@@ -24,7 +24,7 @@ class InstituicaoDAO:
                 "nome": nome,
                 "endereco": endereco}
 
-    def get_by_id(self, idelo):
+    def get_by_idelo(self, idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(

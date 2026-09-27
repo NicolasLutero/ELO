@@ -4,16 +4,16 @@ class UsuarioDAO:
     def __init__(self, connection):
         self.connection = connection
 
-    def create(self, nome, cpf, email, ra, senha, gremio_id=None):
+    def create(self, nome, cpf, email, ra, senha, gremio_idelo=None):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            INSERT INTO Usuario (nome, cpf, email, ra, senha, gremio_id)
+            INSERT INTO Usuario (nome, cpf, email, ra, senha, gremio_idelo)
             VALUES (%s, %s, %s, %s, %s, %s)
             RETURNING idelo
             """,
-            (nome, cpf, email, ra, senha, gremio_id)
+            (nome, cpf, email, ra, senha, gremio_idelo)
         )
 
         idelo = cursor.fetchone()[0]
@@ -27,14 +27,14 @@ class UsuarioDAO:
                 "email": email,
                 "ra": ra,
                 "senha": senha,
-                "gremio_id": gremio_id}
+                "gremio_idelo": gremio_idelo}
 
-    def get_by_id(self, idelo):
+    def get_by_idelo(self, idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT idelo, nome, cpf, email, ra, senha, gremio_id
+            SELECT idelo, nome, cpf, email, ra, senha, gremio_idelo
             FROM Usuario
             WHERE idelo = %s
             """,
@@ -54,7 +54,36 @@ class UsuarioDAO:
             "email": row[3],
             "ra": row[4],
             "senha": row[5],
-            "gremio_id": row[6]
+            "gremio_idelo": row[6]
+        }
+
+    def get_by_email_senha(self, email, senha):
+        cursor = self.connection.cursor()
+
+        cursor.execute(
+            """
+            SELECT id_elo, nome, cpf, email, ra, senha, gremio_idelo
+            FROM Usuario
+            WHERE email = %s
+                AND senha = %s
+            """,
+            (email, senha,)
+        )
+
+        row = cursor.fetchone()
+        cursor.close()
+
+        if row is None:
+            return None
+
+        return {
+            "id_elo": row[0],
+            "nome": row[1],
+            "cpf": row[2],
+            "email": row[3],
+            "ra": row[4],
+            "senha": row[5],
+            "gremio_idelo": row[6]
         }
 
     def check_availability_cpf(self, cpf):
@@ -87,7 +116,7 @@ class UsuarioDAO:
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT idelo, nome, cpf, email, ra, senha, gremio_id
+            SELECT idelo, nome, cpf, email, ra, senha, gremio_idelo
             FROM Usuario
         """)
 
@@ -99,7 +128,7 @@ class UsuarioDAO:
                 "email": row[3],
                 "ra": row[4],
                 "senha": row[5],
-                "gremio_id": row[6]
+                "gremio_idelo": row[6]
             }
             for row in cursor.fetchall()
         ]
@@ -118,7 +147,7 @@ class UsuarioDAO:
                 email = %s,
                 ra = %s,
                 senha = %s,
-                gremio_id = %s
+                gremio_idelo = %s
             WHERE idelo = %s
             """,
             (
@@ -127,7 +156,7 @@ class UsuarioDAO:
                 usuario.email,
                 usuario.ra,
                 usuario.senha,
-                usuario.gremio_id,
+                usuario.gremio_idelo,
                 usuario.idelo
             )
         )

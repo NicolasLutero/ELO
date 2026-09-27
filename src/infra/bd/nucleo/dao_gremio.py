@@ -9,7 +9,7 @@ class GremioDAO:
 
         cursor.execute(
             """
-            INSERT INTO gremio (nome, instituicao_id, etapa_ensino, legitimado, fundador_idelo, cargo_adm_idelo)
+            INSERT INTO gremio (nome, instituicao_idelo, etapa_ensino, legitimado, fundador_idelo, cargo_adm_idelo)
             VALUES (%s, %s, %s, %s, %s, %s)
             RETURNING idelo
             """,
@@ -29,12 +29,12 @@ class GremioDAO:
                 "fundador_idelo": fundador_idelo,
                 "cargo_adm_idelo": cargo_adm_idelo}
 
-    def get_by_id(self, idelo):
+    def get_by_idelo(self, idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT idelo, nome, instituicao_id, etapa_ensino, legitimado, fundador_idelo, cargo_adm_idelo
+            SELECT idelo, nome, instituicao_idelo, etapa_ensino, legitimado, fundador_idelo, cargo_adm_idelo
             FROM gremio
             WHERE idelo = %s
             """,
@@ -61,7 +61,7 @@ class GremioDAO:
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT idelo, nome, instituicao_id, etapa_ensino, legitimado, fundador_idelo, cargo_adm_idelo
+            SELECT idelo, nome, instituicao_idelo, etapa_ensino, legitimado, fundador_idelo, cargo_adm_idelo
             FROM gremio
         """)
 
@@ -86,9 +86,9 @@ class GremioDAO:
 
         cursor.execute(
             """
-            SELECT idelo, nome, instituicao_id, etapa_ensino, legitimado, fundador_idelo, cargo_adm_idelo
+            SELECT idelo, nome, instituicao_idelo, etapa_ensino, legitimado, fundador_idelo, cargo_adm_idelo
             FROM gremio
-            WHERE instituicao_id = %s
+            WHERE instituicao_idelo = %s
                 AND etapa_ensino = %s
             """,
             (instituicao_idelo, etapa)
@@ -117,7 +117,7 @@ class GremioDAO:
             f"""
                 SELECT count(idelo)
                 FROM gremio
-                WHERE instituicao_id = %s 
+                WHERE instituicao_idelo = %s 
                     AND etapa_ensino = %s
             """,
             (inst, etapa)
@@ -135,7 +135,7 @@ class GremioDAO:
             """
             UPDATE gremio
             SET nome = %s,
-                instituicao_id = %s,
+                instituicao_idelo = %s,
                 etapa_ensino = %s,
                 legitimado = %s,
                 fundador_idelo = %s,

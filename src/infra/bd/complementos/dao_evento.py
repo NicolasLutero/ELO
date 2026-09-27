@@ -4,16 +4,16 @@ class EventoDAO:
     def __init__(self, connection):
         self.connection = connection
 
-    def create(self, nome, descricao, data_evento, local, gremio_id, organizador_idelo, cargo_adm_idelo=None):
+    def create(self, nome, descricao, data_evento, local, gremio_idelo, organizador_idelo, cargo_adm_idelo=None):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            INSERT INTO evento (nome, descricao, data_evento, local, gremio_id, organizador_idelo, cargo_adm_idelo)
+            INSERT INTO evento (nome, descricao, data_evento, local, gremio_idelo, organizador_idelo, cargo_adm_idelo)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
             RETURNING idelo
             """,
-            (nome, descricao, data_evento, local, gremio_id, organizador_idelo, cargo_adm_idelo)
+            (nome, descricao, data_evento, local, gremio_idelo, organizador_idelo, cargo_adm_idelo)
         )
 
         idelo = cursor.fetchone()[0]
@@ -27,16 +27,16 @@ class EventoDAO:
             "descricao": descricao,
             "data_evento": data_evento,
             "local": local,
-            "gremio_id": gremio_id,
+            "gremio_idelo": gremio_idelo,
             "organizador_idelo": organizador_idelo,
             "cargo_adm_idelo": cargo_adm_idelo}
 
-    def get_by_id(self, idelo):
+    def get_by_idelo(self, idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT idelo, nome, descricao, data_evento, local, gremio_id, organizador_idelo, cargo_adm_idelo
+            SELECT idelo, nome, descricao, data_evento, local, gremio_idelo, organizador_idelo, cargo_adm_idelo
             FROM evento
             WHERE idelo = %s
             """,
@@ -54,7 +54,7 @@ class EventoDAO:
             "descricao": row[2],
             "data_evento": row[3],
             "local": row[4],
-            "gremio_id": row[5],
+            "gremio_idelo": row[5],
             "organizador_idelo": row[6],
             "cargo_adm_idelo": row[7]
         }
@@ -63,7 +63,7 @@ class EventoDAO:
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT idelo, nome, descricao, data_evento, local, gremio_id, organizador_idelo, cargo_adm_idelo
+            SELECT idelo, nome, descricao, data_evento, local, gremio_idelo, organizador_idelo, cargo_adm_idelo
             FROM evento
         """)
 
@@ -74,7 +74,7 @@ class EventoDAO:
                 "descricao": row[2],
                 "data_evento": row[3],
                 "local": row[4],
-                "gremio_id": row[5],
+                "gremio_idelo": row[5],
                 "organizador_idelo": row[6],
                 "cargo_adm_idelo": row[7]
             }
@@ -94,7 +94,7 @@ class EventoDAO:
                 descricao = %s,
                 data_evento = %s,
                 local = %s,
-                gremio_id = %s,
+                gremio_idelo = %s,
                 organizador_idelo = %s,
                 cargo_adm_idelo = %s
             WHERE idelo = %s
@@ -104,7 +104,7 @@ class EventoDAO:
                 evento.descricao,
                 evento.data_evento,
                 evento.local,
-                evento.gremio_id,
+                evento.gremio_idelo,
                 evento.organizador_idelo,
                 evento.cargo_adm_idelo,
                 evento.idelo

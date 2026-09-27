@@ -4,16 +4,16 @@ class EnqueteDAO:
     def __init__(self, connection):
         self.connection = connection
 
-    def create(self, titulo, descricao, data_criacao, data_encerramento, gremio_id, autor_idelo, cargo_adm_idelo=None):
+    def create(self, titulo, descricao, data_criacao, data_encerramento, gremio_idelo, autor_idelo, cargo_adm_idelo=None):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            INSERT INTO enquete (titulo, descricao, data_criacao, data_encerramento, gremio_id, autor_idelo, cargo_adm_idelo)
+            INSERT INTO enquete (titulo, descricao, data_criacao, data_encerramento, gremio_idelo, autor_idelo, cargo_adm_idelo)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
             RETURNING idelo
             """,
-            (titulo, descricao, data_criacao, data_encerramento, gremio_id, autor_idelo, cargo_adm_idelo)
+            (titulo, descricao, data_criacao, data_encerramento, gremio_idelo, autor_idelo, cargo_adm_idelo)
         )
 
         idelo = cursor.fetchone()[0]
@@ -27,16 +27,16 @@ class EnqueteDAO:
             "descricao": descricao,
             "data_criacao": data_criacao,
             "data_encerramento": data_encerramento,
-            "gremio_id": gremio_id,
+            "gremio_idelo": gremio_idelo,
             "autor_idelo": autor_idelo,
             "cargo_adm_idelo": cargo_adm_idelo}
 
-    def get_by_id(self, idelo):
+    def get_by_idelo(self, idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT idelo, titulo, descricao, data_criacao, data_encerramento, gremio_id, autor_idelo, cargo_adm_idelo
+            SELECT idelo, titulo, descricao, data_criacao, data_encerramento, gremio_idelo, autor_idelo, cargo_adm_idelo
             FROM enquete
             WHERE idelo = %s
             """,
@@ -54,7 +54,7 @@ class EnqueteDAO:
             "descricao": row[2],
             "data_criacao": row[3],
             "data_encerramento": row[4],
-            "gremio_id": row[5],
+            "gremio_idelo": row[5],
             "autor_idelo": row[6],
             "cargo_adm_idelo": row[7]
         }
@@ -63,7 +63,7 @@ class EnqueteDAO:
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT idelo, titulo, descricao, data_criacao, data_encerramento, gremio_id, autor_idelo, cargo_adm_idelo
+            SELECT idelo, titulo, descricao, data_criacao, data_encerramento, gremio_idelo, autor_idelo, cargo_adm_idelo
             FROM enquete
         """)
 
@@ -74,7 +74,7 @@ class EnqueteDAO:
                 "descricao": row[2],
                 "data_criacao": row[3],
                 "data_encerramento": row[4],
-                "gremio_id": row[5],
+                "gremio_idelo": row[5],
                 "autor_idelo": row[6],
                 "cargo_adm_idelo": row[7]
             }
@@ -94,7 +94,7 @@ class EnqueteDAO:
                 descricao = %s,
                 data_criacao = %s,
                 data_encerramento = %s,
-                gremio_id = %s,
+                gremio_idelo = %s,
                 autor_idelo = %s,
                 cargo_adm_idelo = %s
             WHERE idelo = %s
@@ -104,7 +104,7 @@ class EnqueteDAO:
                 enquete.descricao,
                 enquete.data_criacao,
                 enquete.data_encerramento,
-                enquete.gremio_id,
+                enquete.gremio_idelo,
                 enquete.autor_idelo,
                 enquete.cargo_adm_idelo,
                 enquete.idelo

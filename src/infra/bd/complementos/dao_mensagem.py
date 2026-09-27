@@ -4,16 +4,16 @@ class MensagemDAO:
     def __init__(self, connection):
         self.connection = connection
 
-    def create(self, texto, data_envio, canal_id, usuario_id):
+    def create(self, texto, data_envio, canal_idelo, usuario_idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            INSERT INTO mensagem (texto, data_envio, canal_id, usuario_id)
+            INSERT INTO mensagem (texto, data_envio, canal_idelo, usuario_idelo)
             VALUES (%s, %s, %s, %s)
             RETURNING idelo
             """,
-            (texto, data_envio, canal_id, usuario_id)
+            (texto, data_envio, canal_idelo, usuario_idelo)
         )
         idelo = cursor.fetchone()[0]
         self.connection.commit()
@@ -23,15 +23,15 @@ class MensagemDAO:
             "idelo": idelo,
             "texto": texto,
             "data_envio": data_envio,
-            "canal_id": canal_id,
-            "usuario_id": usuario_id}
+            "canal_idelo": canal_idelo,
+            "usuario_idelo": usuario_idelo}
 
-    def get_by_id(self, idelo):
+    def get_by_idelo(self, idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT idelo, texto, data_envio, canal_id, usuario_id
+            SELECT idelo, texto, data_envio, canal_idelo, usuario_idelo
             FROM mensagem
             WHERE idelo = %s
             """,
@@ -48,15 +48,15 @@ class MensagemDAO:
             "idelo": row[0],
             "texto": row[1],
             "data_envio": row[2],
-            "canal_id": row[3],
-            "usuario_id": row[4]
+            "canal_idelo": row[3],
+            "usuario_idelo": row[4]
         }
 
     def get_all(self):
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT idelo, texto, data_envio, canal_id, usuario_id
+            SELECT idelo, texto, data_envio, canal_idelo, usuario_idelo
             FROM mensagem
         """)
 
@@ -65,8 +65,8 @@ class MensagemDAO:
                 "idelo": row[0],
                 "texto": row[1],
                 "data_envio": row[2],
-                "canal_id": row[3],
-                "usuario_id": row[4]
+                "canal_idelo": row[3],
+                "usuario_idelo": row[4]
             }
             for row in cursor.fetchall()
         ]
@@ -82,15 +82,15 @@ class MensagemDAO:
             UPDATE mensagem
             SET texto = %s,
                 data_envio = %s,
-                canal_id = %s,
-                usuario_id = %s
+                canal_idelo = %s,
+                usuario_idelo = %s
             WHERE idelo = %s
             """,
             (
                 mensagem.texto,
                 mensagem.data_envio,
-                mensagem.canal_id,
-                mensagem.usuario_id,
+                mensagem.canal_idelo,
+                mensagem.usuario_idelo,
                 mensagem.idelo
             )
         )

@@ -4,16 +4,16 @@ class CanalDAO:
     def __init__(self, connection):
         self.connection = connection
 
-    def create(self, nome, descricao, gremio_id, criador_idelo, cargo_adm_idelo=None):
+    def create(self, nome, descricao, gremio_idelo, criador_idelo, cargo_adm_idelo=None):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            INSERT INTO canal (nome, descricao, gremio_id, criador_idelo, cargo_adm_idelo)
+            INSERT INTO canal (nome, descricao, gremio_idelo, criador_idelo, cargo_adm_idelo)
             VALUES (%s, %s, %s, %s, %s)
             RETURNING idelo
             """,
-            (nome, descricao, gremio_id, criador_idelo, cargo_adm_idelo)
+            (nome, descricao, gremio_idelo, criador_idelo, cargo_adm_idelo)
         )
 
         idelo = cursor.fetchone()[0]
@@ -25,16 +25,16 @@ class CanalDAO:
             "idelo": idelo,
             "nome": nome,
             "descricao": descricao,
-            "gremio_id": gremio_id,
+            "gremio_idelo": gremio_idelo,
             "criador_idelo": criador_idelo,
             "cargo_adm_idelo": cargo_adm_idelo}
 
-    def get_by_id(self, idelo):
+    def get_by_idelo(self, idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT idelo, nome, descricao, gremio_id, criador_idelo, cargo_adm_idelo
+            SELECT idelo, nome, descricao, gremio_idelo, criador_idelo, cargo_adm_idelo
             FROM canal
             WHERE idelo = %s
             """,
@@ -51,7 +51,7 @@ class CanalDAO:
             "idelo": row[0],
             "nome": row[1],
             "descricao": row[2],
-            "gremio_id": row[3],
+            "gremio_idelo": row[3],
             "criador_idelo": row[4],
             "cargo_adm_idelo": row[5]
         }
@@ -60,7 +60,7 @@ class CanalDAO:
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT idelo, nome, descricao, gremio_id, criador_idelo, cargo_adm_idelo
+            SELECT idelo, nome, descricao, gremio_idelo, criador_idelo, cargo_adm_idelo
             FROM canal
         """)
 
@@ -69,7 +69,7 @@ class CanalDAO:
                 "idelo": row[0],
                 "nome": row[1],
                 "descricao": row[2],
-                "gremio_id": row[3],
+                "gremio_idelo": row[3],
                 "criador_idelo": row[4],
                 "cargo_adm_idelo": row[5]
             }
@@ -87,7 +87,7 @@ class CanalDAO:
             UPDATE canal
             SET nome = %s,
                 descricao = %s,
-                gremio_id = %s,
+                gremio_idelo = %s,
                 criador_idelo = %s,
                 cargo_adm_idelo = %s
             WHERE idelo = %s
@@ -95,7 +95,7 @@ class CanalDAO:
             (
                 canal.nome,
                 canal.descricao,
-                canal.gremio_id,
+                canal.gremio_idelo,
                 canal.criador_idelo,
                 canal.cargo_adm_idelo,
                 canal.idelo

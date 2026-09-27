@@ -4,16 +4,16 @@ class ComunicadoDAO:
     def __init__(self, connection):
         self.connection = connection
 
-    def create(self, titulo, conteudo, data_publicacao, gremio_id, autor_idelo, cargo_adm_idelo=None):
+    def create(self, titulo, conteudo, data_publicacao, gremio_idelo, autor_idelo, cargo_adm_idelo=None):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            INSERT INTO comunicado (titulo, conteudo, data_publicacao, gremio_id, autor_idelo, cargo_adm_idelo)
+            INSERT INTO comunicado (titulo, conteudo, data_publicacao, gremio_idelo, autor_idelo, cargo_adm_idelo)
             VALUES (%s, %s, %s, %s, %s, %s)
             RETURNING idelo
             """,
-            (titulo, conteudo, data_publicacao, gremio_id, autor_idelo, cargo_adm_idelo)
+            (titulo, conteudo, data_publicacao, gremio_idelo, autor_idelo, cargo_adm_idelo)
         )
 
         idelo = cursor.fetchone()[0]
@@ -26,16 +26,16 @@ class ComunicadoDAO:
             "titulo": titulo,
             "conteudo": conteudo,
             "data_publicacao": data_publicacao,
-            "gremio_id": gremio_id,
+            "gremio_idelo": gremio_idelo,
             "autor_idelo": autor_idelo,
             "cargo_adm_idelo": cargo_adm_idelo}
 
-    def get_by_id(self, idelo):
+    def get_by_idelo(self, idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
             """
-            SELECT idelo, titulo, conteudo, data_publicacao, gremio_id, autor_idelo, cargo_adm_idelo
+            SELECT idelo, titulo, conteudo, data_publicacao, gremio_idelo, autor_idelo, cargo_adm_idelo
             FROM comunicado
             WHERE idelo = %s
             """,
@@ -53,7 +53,7 @@ class ComunicadoDAO:
             "titulo": row[1],
             "conteudo": row[2],
             "data_publicacao": row[3],
-            "gremio_id": row[4],
+            "gremio_idelo": row[4],
             "autor_idelo": row[5],
             "cargo_adm_idelo": row[6]
         }
@@ -62,7 +62,7 @@ class ComunicadoDAO:
         cursor = self.connection.cursor()
 
         cursor.execute("""
-            SELECT idelo, titulo, conteudo, data_publicacao, gremio_id, autor_idelo, cargo_adm_idelo
+            SELECT idelo, titulo, conteudo, data_publicacao, gremio_idelo, autor_idelo, cargo_adm_idelo
             FROM comunicado
         """)
 
@@ -72,7 +72,7 @@ class ComunicadoDAO:
                 "titulo": row[1],
                 "conteudo": row[2],
                 "data_publicacao": row[3],
-                "gremio_id": row[4],
+                "gremio_idelo": row[4],
                 "autor_idelo": row[5],
                 "cargo_adm_idelo": row[6]
             }
@@ -91,7 +91,7 @@ class ComunicadoDAO:
             SET titulo = %s,
                 conteudo = %s,
                 data_publicacao = %s,
-                gremio_id = %s,
+                gremio_idelo = %s,
                 autor_idelo = %s,
                 cargo_adm_idelo = %s
             WHERE idelo = %s
@@ -100,7 +100,7 @@ class ComunicadoDAO:
                 comunicado.titulo,
                 comunicado.conteudo,
                 comunicado.data_publicacao,
-                comunicado.gremio_id,
+                comunicado.gremio_idelo,
                 comunicado.autor_idelo,
                 comunicado.cargo_adm_idelo,
                 comunicado.idelo

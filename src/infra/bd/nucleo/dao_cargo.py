@@ -4,7 +4,7 @@ class CargoDAO:
     def __init__(self, connection):
         self.connection = connection
 
-    def create(self, nome, descricao, vagas, gremio_id):
+    def create(self, nome, descricao, vagas, gremio_idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(
@@ -26,7 +26,7 @@ class CargoDAO:
                 "descricao": descricao,
                 "vagas": vagas}
 
-    def get_by_id(self, idelo):
+    def get_by_idelo(self, idelo):
         cursor = self.connection.cursor()
 
         cursor.execute(

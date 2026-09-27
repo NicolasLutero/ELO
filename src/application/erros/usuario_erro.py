@@ -18,3 +18,7 @@ class UsuarioNaoExisteErro(Exception):
 class UsuarioNaoTemRAErro(Exception):
     def __init__(self, mensagem="Este Usuário não tem RA."):
         super().__init__(mensagem)
+
+class CredenciaisInvalidasErro(Exception):
+    def __init__(self, mensagem="Credenciais para login de Usuário invalidas."):
+        super().__init__(mensagem)

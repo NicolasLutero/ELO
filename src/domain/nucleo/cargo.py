@@ -1,9 +1,9 @@
 
 
 class Cargo:
-    def __init__(self, idelo, nome, descricao, vagas, gremio_id):
+    def __init__(self, idelo, nome, descricao, vagas, gremio_idelo):
         self.idelo = idelo
         self.nome = nome
         self.descricao = descricao
         self.vagas = vagas
-        self.gremio_id = gremio_id
+        self.gremio_idelo = gremio_idelo
