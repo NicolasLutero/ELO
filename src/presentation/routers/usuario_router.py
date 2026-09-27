@@ -7,7 +7,8 @@ from src.infra.bd.nucleo.dao_gremio import GremioDAO
 from src.application.erros.usuario_erro import CPFJaCadastradoErro, EmailJaCadastradoErro, RAJaCadastradoErro
 from src.application.servico_usuario import ServicoUsuario
 
-from src.presentation.schemas.usuario_schema import UsuarioCadastroSchema
+from src.presentation.schemas.usuario_cadastro_schema import UsuarioCadastroSchema
+from src.presentation.schemas.usuario_login_schema import UsuarioLoginSchema
 
 
 def get_usuario_service() -> ServicoUsuario:
@@ -19,13 +20,15 @@ def get_usuario_service() -> ServicoUsuario:
 
 router = APIRouter(prefix="/usuario")
 
-@router.get("/")
-def ola():
-    return {
-        "msg": "oi"
-    }
+@router.post("/login")
+def login(
+    payload: UsuarioLoginSchema,
+    service: ServicoUsuario = Depends(get_usuario_service)
+):
+    pass 
+    
 
-@router.post("/cadastrar")
+@router.post("/cadastro")
 def cadastrar(
     payload: UsuarioCadastroSchema,
     service: ServicoUsuario = Depends(get_usuario_service)
@@ -37,7 +40,7 @@ def cadastrar(
         
         return {
             "mensagem": "usuario cadastrado com sucesso!",
-            "id": novo_usuario.id_elo
+            "id": novo_usuario.idelo
         }
 
     except CPFJaCadastradoErro:
