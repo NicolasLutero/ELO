@@ -1,8 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from src.infra.bd.connection_factory import ConnectionFactory
-from src.infra.bd.nucleo.dao_usuario import UsuarioDAO
-from src.infra.bd.nucleo.dao_gremio import GremioDAO
+from src.presentation.deps.usuario_deps import get_usuario_service
 
 from src.application.erros.usuario_erro import CPFJaCadastradoErro, EmailJaCadastradoErro, RAJaCadastradoErro
 from src.application.servico_usuario import ServicoUsuario
@@ -10,13 +8,7 @@ from src.application.servico_usuario import ServicoUsuario
 from src.presentation.schemas.usuario_cadastro_schema import UsuarioCadastroSchema
 from src.presentation.schemas.usuario_login_schema import UsuarioLoginSchema
 
-
-def get_usuario_service() -> ServicoUsuario:
-    conn = ConnectionFactory.get_connection()
-    dao_usuario = UsuarioDAO(conn)
-    dao_gremio = GremioDAO(conn)
-
-    return ServicoUsuario(dao_usuario=dao_usuario, dao_gremio=dao_gremio)
+from src.presentation.security import create_access_token
 
 router = APIRouter(prefix="/usuario")
 
@@ -25,8 +17,19 @@ def login(
     payload: UsuarioLoginSchema,
     service: ServicoUsuario = Depends(get_usuario_service)
 ):
-    pass 
-    
+    dados_login = payload.model_dump()
+    usuario = service.login(**dados_login)
+
+    if not usuario:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="E-mail ou senha incorretos",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    access_token = create_access_token(data={"sub": usuario["id_elo"]})
+    return {"access_token": access_token, "token_type": "bearer"}
+
 
 @router.post("/cadastro")
 def cadastrar(
@@ -40,7 +43,6 @@ def cadastrar(
         
         return {
             "mensagem": "usuario cadastrado com sucesso!",
-            "id": novo_usuario.idelo
         }
 
     except CPFJaCadastradoErro:
