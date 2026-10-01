@@ -52,4 +52,12 @@ class ServicoUsuario:
         usuario = self.dao_usuario.get_by_email_senha(email, senha)
         if usuario is None:
             raise CredenciaisInvalidasErro()
+        del usuario["senha"]
+        return usuario
+
+    def get_by_idelo(self, idelo):
+        usuario = self.dao_usuario.get_by_idelo(idelo)
+        if usuario is None:
+            raise UsuarioNaoExisteErro()
+        del usuario["senha"]
         return usuario
