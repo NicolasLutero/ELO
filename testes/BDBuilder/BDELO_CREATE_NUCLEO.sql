@@ -3,7 +3,7 @@ CREATE TABLE public.cargo (
     nome character varying(100) NOT NULL,
     descricao text,
     vagas integer NOT NULL,
-    gremio_id integer
+    gremio_idelo integer
 );
 
 CREATE TABLE public.cargo_concede_permissao (
@@ -14,7 +14,7 @@ CREATE TABLE public.cargo_concede_permissao (
 CREATE TABLE public.gremio (
     idelo integer CONSTRAINT gremio_idelo_not_null NOT NULL,
     nome character varying(255) NOT NULL,
-    instituicao_id integer,
+    instituicao_idelo integer,
     etapa_ensino character varying(100) NOT NULL,
     legitimado boolean DEFAULT false,
     cargo_adm_idelo integer,
@@ -45,7 +45,7 @@ CREATE TABLE public.usuario (
     email character varying(255) NOT NULL,
     ra character varying(50) NOT NULL,
     senha character varying(255) NOT NULL,
-    gremio_id integer
+    gremio_idelo integer
 );
 
 CREATE TABLE public.validade (

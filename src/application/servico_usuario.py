@@ -42,10 +42,11 @@ class ServicoUsuario:
 
     def _idelo_gremio_dado_ra(self, ra):
         instituicao_idelo, etapa = InstituicaoEEtapaPorRa.get(ra)
-        gremio = Gremio(**self.dao_gremio.get_by_inst_etapa(instituicao_idelo, etapa))
-        if gremio is None:
+        dados_gremio = self.dao_gremio.get_by_inst_etapa(instituicao_idelo, etapa)
+        if dados_gremio is None:
             return None
         else:
+            gremio = Gremio(**dados_gremio)
             return gremio.idelo
 
     def login(self, email, senha):
